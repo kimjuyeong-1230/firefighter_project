@@ -70,7 +70,7 @@ data['계절']=np.where(data['항목'].isin(['12월','1월','2월']),'winter',
              np.where(data['항목'].isin(['6월','7월','8월']),'summer','fall')))
 
 # 계절 순서를 봄, 여름, 겨울, 가을로 설정
-order = ['spring', 'summer', 'winter', 'fall']
+order = ['spring', 'summer', 'fall', 'winter']
 data['계절'] = pd.Categorical(data['계절'], categories=order, ordered=True)
 data = data.sort_values(['year', '계절'])
 data
@@ -89,4 +89,3 @@ plt.ylabel('Number of Incidents')
 
 plt.show()
 plt.clf()
-
