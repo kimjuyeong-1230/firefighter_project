@@ -53,19 +53,20 @@ data = pd.concat([data_2020, data_2021, data_2022])
 data
 
 #변수명 변경
-data=data.rename(columns={'항목':'month'})
-data=data.rename(columns={'계':'total'})
-data=data.rename(columns={'전기적요인':'electrical'})
-data=data.rename(columns={'기계적요인':'mechanical'})
-data=data.rename(columns={'화학적요인':'chemical'})
-data=data.rename(columns={'가스누출':'gas'})
-data=data.rename(columns={'교통사고':'Traffic'})
-data=data.rename(columns={'부주의':'Negligence'})
-data=data.rename(columns={'기타':'other'})
-data=data.rename(columns={'자연적요인':'natural'})
-data=data.rename(columns={'방화':'arson'})
-data=data.rename(columns={'방화의심':'suspected'})
-data=data.rename(columns={'미상':'unknown'})
+data=data.rename(columns={
+    '항목':'month',
+    '계':'total',
+    '전기적요인':'electrical',
+    '기계적요인':'mechanical',
+    '화학적요인':'chemical',
+    '가스누출':'gas',
+    '교통사고':'Traffic',
+    '부주의':'Negligence',
+    '기타':'other',
+    '자연적요인':'natural',
+    '방화':'arson',
+    '방화의심':'suspected',
+    '미상':'unknown'})
 data
 
 # for문 사용하여 전체 열을 int로 변환
