@@ -7,7 +7,6 @@ df=pd.read_csv('data/fire.csv')
 df
 df.columns
 
-# 커밋 테스트트
 # 년도별로 정리
 data_2020 = df[['항목'] + df.filter(like='2020').columns.tolist()]
 data_2020
