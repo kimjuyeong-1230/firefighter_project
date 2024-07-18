@@ -43,7 +43,6 @@ data_2022 = data_2022[2:]
 data_2022 = data_2022.reset_index(drop=True)
 data_2022
 
-
 # year 변수 추가
 data_2020['year']=2020
 data_2021['year']=2021
@@ -53,11 +52,28 @@ data_2022['year']=2022
 data = pd.concat([data_2020, data_2021, data_2022])
 data
 
+#변수명 변경
+data=data.rename(columns={
+    '항목':'month',
+    '계':'total',
+    '전기적요인':'electrical',
+    '기계적요인':'mechanical',
+    '화학적요인':'chemical',
+    '가스누출':'gas',
+    '교통사고':'Traffic',
+    '부주의':'Negligence',
+    '기타':'other',
+    '자연적요인':'natural',
+    '방화':'arson',
+    '방화의심':'suspected',
+    '미상':'unknown'})
+data
+
 # for문 사용하여 전체 열을 int로 변환
 data.info()
-columns_to_convert = ['계', '전기적요인', '기계적요인', '화학적요인',
-                      '가스누출', '교통사고', '부주의', '기타', '자연적요인',
-                      '방화', '방화의심', '미상']
+columns_to_convert = ['total', 'electrical', 'mechanical', 'chemical',
+                      'gas', 'Traffic', 'Negligence', 'other', 'natural',
+                      'arson', 'suspected', 'unknown']
 
 for column in columns_to_convert:
     data[column] = pd.to_numeric(data[column])
@@ -65,22 +81,22 @@ for column in columns_to_convert:
 data.info()
 
 # 계절 파생변수 추가
-data['계절']=np.where(data['항목'].isin(['12월','1월','2월']),'winter',
-             np.where(data['항목'].isin(['3월','4월','5월']),'spring',
-             np.where(data['항목'].isin(['6월','7월','8월']),'summer','fall')))
+data['season']=np.where(data['month'].isin(['12월','1월','2월']),'winter',
+             np.where(data['month'].isin(['3월','4월','5월']),'spring',
+             np.where(data['month'].isin(['6월','7월','8월']),'summer','fall')))
 
 # 계절 순서를 봄, 여름, 겨울, 가을로 설정
-order = ['spring', 'summer', 'winter', 'fall']
-data['계절'] = pd.Categorical(data['계절'], categories=order, ordered=True)
-data = data.sort_values(['year', '계절'])
+order = ['spring', 'summer', 'fall', 'winter']
+data['season'] = pd.Categorical(data['season'], categories=order, ordered=True)
+data = data.sort_values(['year', 'season'])
 data
 
 # 계절별 화재 발생횟수 데이터프레임 생성
-season=data.groupby(['year','계절']).agg(계절별화재=('계','sum'))
+season=data.groupby(['year','season']).agg(n=('total','sum'))
 season
 
 #선그래프 생성
-sns.lineplot(data=season ,x='계절', y='계절별화재', hue='year',
+sns.lineplot(data=season ,x='season', y='n', hue='year',
              marker='o', markersize=10)
 
 plt.title('Seasonal Fire Incidents')
@@ -90,3 +106,20 @@ plt.ylabel('Number of Incidents')
 plt.show()
 plt.clf()
 
+#연도별 평균 데이터 시리즈
+data
+data_mean = (data[columns_to_convert].sum()/3).drop('total')
+data_mean
+
+# 막대그래프 생성
+data_mean.plot(kind='bar')
+
+plt.title('Yearly Average of Fire Incident Causes')
+plt.xlabel('Cause of Fire')
+plt.ylabel('Mean Value')
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+# 그래프 보여주기
+plt.show()
+plt.clf()
