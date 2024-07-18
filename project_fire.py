@@ -70,7 +70,7 @@ data['계절']=np.where(data['항목'].isin(['12월','1월','2월']),'winter',
              np.where(data['항목'].isin(['6월','7월','8월']),'summer','fall')))
 
 # 계절 순서를 봄, 여름, 겨울, 가을로 설정
-order = ['spring', 'summer', 'winter', 'fall']
+order = ['spring', 'summer', 'fall', 'winter']
 data['계절'] = pd.Categorical(data['계절'], categories=order, ordered=True)
 data = data.sort_values(['year', '계절'])
 data
@@ -80,8 +80,8 @@ season=data.groupby(['year','계절']).agg(계절별화재=('계','sum'))
 season
 
 #선그래프 생성
-sns.lineplot(data=season ,x='계절', y='계절별화재', hue='year',
-             marker='o', markersize=10)
+sns.lineplot(data=season ,x='계절', y='계절별화재', hue='year',palette="muted",
+             marker='o', markersize=5)
 
 plt.title('Seasonal Fire Incidents')
 plt.xlabel('Season')
@@ -89,4 +89,60 @@ plt.ylabel('Number of Incidents')
 
 plt.show()
 plt.clf()
+
+------------------------------------------------------------------------
+#0717
+## 요인 막대그래프(3년치 통계)
+# 필요없는 열 삭제 & 데이터 합치기
+data_2020
+data_2021
+data_2022
+
+#세로로 합치기 
+data_all = pd.concat([data_2020, data_2021,data_2022])
+data_all
+#필요없는 열 삭제 
+data_all = data_all.drop(columns=['year'])
+data_all = data_all.drop(columns=['계'])
+data_all
+
+## 요인별 평균 내기
+#행/열 바꾸기 
+data_all = data_all.transpose()
+data_all.columns
+data_all = data_all.drop("항목", axis=0)
+data_all
+
+##데이터 타입 변경 
+data_all=data_all.astype(int)
+data_all.info()
+
+data_all["total"] = data_all.sum(axis=1)/3
+data_all
+
+## 행 밑에 새로운 행(total)추가하는 방법
+#data_all.loc["total"] = data_all.sum()
+#data_all
+
+#막대그래프 만들기 
+data_all["total"].plot.bar(rot=45)
+plt.title('Yearly Average of Fire Incident Causes')
+plt.xlabel('Cause of Fire')
+plt.ylabel('Mean Value')
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+
+plt.clf()
+
+## 한글
+from matplotlib import font_manager, rc
+
+# 한글 폰트 설정
+font_path = "C:/Windows/Fonts/malgun.ttf"  
+# 예시: 윈도우 시스템에 있는 맑은 고딕 폰트 경로
+font_name = font_manager.FontProperties(fname=font_path).get_name()
+rc('font', family=font_name)
+
 
