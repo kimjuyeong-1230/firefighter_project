@@ -219,9 +219,9 @@ columns_2 = [
 ]
 
 for i in range(0, 22):
-    di_2020.iloc[1, i] = columns_1[i]+' '+columns_2[i]
-    di_2021.iloc[1, i] = columns_1[i]+' '+columns_2[i]
-    di_2022.iloc[1, i] = columns_1[i]+' '+columns_2[i]
+    di_2020.iloc[1, i] = columns_1[i-1]+' '+columns_2[i-1]
+    di_2021.iloc[1, i] = columns_1[i-1]+' '+columns_2[i-1]
+    di_2022.iloc[1, i] = columns_1[i-1]+' '+columns_2[i-1]
     
 
 di_2022.iloc[1, :]
@@ -255,20 +255,12 @@ for i in range(0, 22):
 
 di_con.info()
 
+
+
 di_mean = di_con.mean()
 di_mean
 
-data_tot=data_all['total']
+data_tot=data_all['total'].
 data_tot
 
-# 비율을 저장할 빈 Series 생성
-ratios = pd.Series()
-
-# 각 요인별로 사망과 부상 데이터를 전체 값으로 나누어 비율 계산
-for key in di_mean.index:
-    cause, status = key.split()
-    total = data_tot[cause]
-    ratio = di_mean[key] / total
-    ratios[key] = ratio
-
-print(ratios)
+di_rate=
