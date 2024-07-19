@@ -256,7 +256,7 @@ damage_death
 
 # 그래프
 damage_death["percentage"].plot.bar(rot=0)
-plt.xticks(fontsize=4, rotation=20)
+plt.xticks(fontsize=5, rotation=20)
 plt.show()
 plt.clf()
 
@@ -266,5 +266,5 @@ damage_injury
 
 # 그래프
 damage_injury["percentage"].plot.bar(rot=0)
-plt.xticks(fontsize=4, rotation=20)
+plt.xticks(fontsize=5, rotation=20)
 plt.show()
