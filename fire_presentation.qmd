@@ -8,7 +8,7 @@ jupyter: python3
 
 ## 계절별 화재발생 빈도
 
-<데이터 설명>
+### <데이터 설명>
 
 ```{python}
 import pandas as pd
@@ -17,26 +17,254 @@ df = pd.read_csv("data/fire.csv")
 df.head()
 ```
 
-<br> <데이터 전처리>
+<br>
+
+### <데이터 전처리>
 
 -   연도별로 분리
 
 ```{python}
-df.columns
-
-## 연도별로 나눔
 data_2020 = df[['항목'] + df.filter(like='2020').columns.tolist()]
-data_2020
 
 data_2021 = df[['항목'] + df.filter(like='2021').columns.tolist()]
-data_2021
 
 data_2022 = df[['항목'] + df.filter(like='2022').columns.tolist()]
-data_2022
 
-
+data_2022.head()
 ```
 
+<br>
+
+-   2022년의 제품결함 열 삭제
+
+```{python}
+data_2022 = data_2022.drop(columns = "2022.11")
+data_2022.head()
+```
+
+<br>
+
+-   0번째 행을 column으로 지정
+
+```{python}
+data_2020.columns = data_2020.iloc[0] 
+
+data_2021.columns = data_2021.iloc[0] 
+
+data_2022.columns = data_2022.iloc[0] 
+
+data_2022.head()
+```
+
+<br>
+
+-   0행, 1행 삭제 후 인덱스 초기화
+
+```{python}
+data_2020 = data_2020[2:]
+data_2020 = data_2020.reset_index(drop=True)
+
+data_2021 = data_2021[2:]
+data_2021 = data_2021.reset_index(drop=True)
+
+data_2022 = data_2022[2:]
+data_2022 = data_2022.reset_index(drop=True)
+
+data_2022.head()
+```
+
+<br>
+
+-   데이터타입이 object로 되어 있음
+
+```{python}
+data_2022.info()
+```
+
+<br>
+
+-   for문을 사용해 데이터타입을 int로 변경
+
+```{python}
+columns_to_convert = ['계', '전기적요인', '기계적요인',
+                '화학적요인', '가스누출', '교통사고', '부주의', '기타',
+                '자연적요인', '방화', '방화의심', '미상']
+
+for column in columns_to_convert:
+    data_2020[column] = pd.to_numeric(data_2020[column])
+
+for column in columns_to_convert:
+    data_2021[column] = pd.to_numeric(data_2021[column])
+
+for column in columns_to_convert:
+    data_2022[column] = pd.to_numeric(data_2022[column])
+
+data_2022.info()
+```
+
+<br>
+
+-   계절 파생변수 추가
+
+    > 봄: 3월, 4월, 5월<br> 여름: 6월, 7월, 8월<br> 가을: 9월, 10월, 11월<br> 겨울: 12월, 1월, 2월
+
+```{python}
+data_2020["계절"] = np.where(data_2020["항목"]\
+                    .isin(["3월", "4월", "5월"]),"spring",
+                    np.where(data_2020["항목"]\
+                    .isin(["6월", "7월", "8월"]),"summer",
+                    np.where(data_2020["항목"]\
+                    .isin(["9월", "10월", "11월"]),"fall","winter")))
+
+data_2021["계절"] = np.where(data_2021["항목"]\
+                    .isin(["3월", "4월", "5월"]),"spring",
+                    np.where(data_2021["항목"].\
+                    isin(["6월", "7월", "8월"]),"summer",
+                    np.where(data_2021["항목"].\
+                    isin(["9월", "10월", "11월"]),"fall","winter")))
+
+data_2022["계절"] = np.where(data_2022["항목"]\
+                    .isin(["3월", "4월", "5월"]),"spring",
+                    np.where(data_2022["항목"]\
+                    .isin(["6월", "7월", "8월"]),"summer",
+                    np.where(data_2022["항목"]\
+                    .isin(["9월", "10월", "11월"]),"fall","winter")))
+
+data_2022.head()
+```
+
+<br>
+
+-   계절별 화재 횟수 데이터프레임 생성
+
+```{python}
+season_20 = data_2020.groupby('계절').agg(sum2020=('계','sum'))
+
+season_21 = data_2021.groupby('계절').agg(sum2021=('계','sum'))
+
+season_22 = data_2022.groupby('계절').agg(sum2022=('계','sum'))
+
+season_22
+```
+
+<br>
+
+-   각 데이터를 열로 병합
+
+```{python}
+season = pd.concat([season_20,season_21,season_22], axis=1)
+season
+```
+
+<br>
+
+-   계절 순서를 '봄', '여름', '가을', '겨울'로 정렬
+
+```{python}
+season = season.loc[['spring', 'summer', 'fall', 'winter']]
+season
+```
+
+<br>
+
+### <데이터 시각화>
+
+-   계절별 화재발생 선 그래프 생성
+
+```{python}
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(6, 6))
+plt.plot(season.index, season['sum2020'], marker='o', label='2020')
+plt.plot(season.index, season['sum2021'], marker='o', label='2021')
+plt.plot(season.index, season['sum2022'], marker='o', label='2022')
+
+plt.legend()
+plt.grid(True)
+plt.show()
+plt.clf()
+```
+
+<br>
+
+### <결과 설명>
+
+> 2020년, 2021년, 2022년 모두 여름과 가을에 비해<br>**봄**과 **겨울**에 화재 발생 빈도가 높게 나타남
+
 ## 요인별 화재발생 빈도
+
+### <데이터 전처리>
+
+-   다시 한번 데이터 확인해보기
+
+```         
+```
+
+```{python}
+data_2022.head
+```
+
+-   데이터 합치기 ('concat' 함수이용)
+
+```{python}
+data_all = pd.concat([data_2020, data_2021,data_2022])
+data_all
+```
+
+-   필요없는 열 제거
+
+```{python}
+data_all = data_all.drop(columns=['계'])
+data_all.head(3)
+```
+
+-   요인별 평균 내기
+
+```{python}
+# 행과 열 바꿔줌
+data_all = data_all.transpose()
+data_all.head()
+```
+
+```{python}
+# 필요없는 열 제거
+data_all = data_all.drop("항목", axis=0)
+data_all = data_all.drop("계절", axis=0)
+data_all.head()
+```
+
+```{python}
+# 데이터타입 변경
+data_all.info()
+data_all=data_all.astype(int)
+```
+
+-   1년동안 일어나는 요인별 화재건수를 'total'열 생성(3년 평균)
+
+```{python}
+data_all["total"] = data_all.sum(axis=1)/3
+data_all.head()
+```
+
+```{python}
+## 한글
+from matplotlib import font_manager, rc
+
+# 한글 폰트 설정
+font_path = "C:/Windows/Fonts/malgun.ttf"  # 예시: 윈도우 시스템에 있는 맑은 고딕 폰트 경로
+font_name = font_manager.FontProperties(fname=font_path).get_name()
+rc('font', family=font_name)
+```
+
+### <데이터 시각화>
+
+-   요인별 화재건수
+
+```{python}
+data_all["total"].plot.bar(rot=0)
+plt.xticks(fontsize=7, rotation=45)
+plt.show()
+plt.clf()
+```
 
 ## 요인별 인명피해

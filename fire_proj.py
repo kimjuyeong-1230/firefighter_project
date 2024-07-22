@@ -143,7 +143,6 @@ data_2022
 
 data_all = pd.concat([data_2020, data_2021,data_2022])
 data_all
-data_all = data_all.drop(columns=['year'])
 data_all = data_all.drop(columns=['계'])
 data_all
 
@@ -155,8 +154,9 @@ data_all = data_all.drop("항목", axis=0)
 data_all = data_all.drop("계절", axis=0)
 data_all
 
-data_all=data_all.astype(int)
 data_all.info()
+data_all=data_all.astype(int)
+
 
 data_all["total"] = data_all.sum(axis=1)/3
 data_all
