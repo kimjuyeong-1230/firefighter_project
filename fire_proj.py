@@ -179,8 +179,6 @@ plt.xticks(fontsize=7, rotation=45)
 plt.show()
 plt.clf()
 
-
-
 # 데이터전처리
 # 데이터 불러오기
 damage = pd.read_csv("C:/Users/User/Desktop/강의 자료/발화요인에_대한_월별_인명피해현황.csv")

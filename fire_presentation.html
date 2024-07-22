@@ -109,11 +109,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="계절별-화재발생-빈도" class="level2">
 <h2 class="anchored" data-anchor-id="계절별-화재발생-빈도">계절별 화재발생 빈도</h2>
 <p>&lt;데이터 설명&gt;</p>
-<div id="e2536a6b" class="cell" data-execution_count="1">
+<div id="3a8b0658" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/fire.csv"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <div>
 
@@ -266,226 +266,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>9</td>
 <td>301</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
-<td>4월</td>
-<td>4381</td>
-<td>648</td>
-<td>304</td>
-<td>57</td>
-<td>10</td>
-<td>41</td>
-<td>2849</td>
-<td>55</td>
-<td>8</td>
-<td>...</td>
-<td>55</td>
-<td>15</td>
-<td>37</td>
-<td>2112</td>
-<td>45</td>
-<td>12</td>
-<td>32</td>
-<td>40</td>
-<td>14</td>
-<td>335</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">6</td>
-<td>5월</td>
-<td>2906</td>
-<td>704</td>
-<td>287</td>
-<td>52</td>
-<td>13</td>
-<td>33</td>
-<td>1462</td>
-<td>39</td>
-<td>14</td>
-<td>...</td>
-<td>82</td>
-<td>14</td>
-<td>33</td>
-<td>2479</td>
-<td>41</td>
-<td>14</td>
-<td>39</td>
-<td>34</td>
-<td>13</td>
-<td>382</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">7</td>
-<td>6월</td>
-<td>2968</td>
-<td>732</td>
-<td>312</td>
-<td>60</td>
-<td>9</td>
-<td>47</td>
-<td>1435</td>
-<td>38</td>
-<td>16</td>
-<td>...</td>
-<td>69</td>
-<td>13</td>
-<td>30</td>
-<td>1230</td>
-<td>34</td>
-<td>26</td>
-<td>36</td>
-<td>28</td>
-<td>21</td>
-<td>256</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">8</td>
-<td>7월</td>
-<td>2423</td>
-<td>861</td>
-<td>289</td>
-<td>57</td>
-<td>12</td>
-<td>35</td>
-<td>885</td>
-<td>29</td>
-<td>30</td>
-<td>...</td>
-<td>67</td>
-<td>9</td>
-<td>36</td>
-<td>902</td>
-<td>27</td>
-<td>25</td>
-<td>35</td>
-<td>23</td>
-<td>21</td>
-<td>245</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">9</td>
-<td>8월</td>
-<td>3017</td>
-<td>1331</td>
-<td>355</td>
-<td>57</td>
-<td>7</td>
-<td>31</td>
-<td>834</td>
-<td>52</td>
-<td>71</td>
-<td>...</td>
-<td>69</td>
-<td>14</td>
-<td>32</td>
-<td>808</td>
-<td>43</td>
-<td>46</td>
-<td>18</td>
-<td>28</td>
-<td>7</td>
-<td>235</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">10</td>
-<td>9월</td>
-<td>2513</td>
-<td>730</td>
-<td>299</td>
-<td>45</td>
-<td>5</td>
-<td>40</td>
-<td>1010</td>
-<td>48</td>
-<td>61</td>
-<td>...</td>
-<td>64</td>
-<td>13</td>
-<td>37</td>
-<td>1151</td>
-<td>39</td>
-<td>50</td>
-<td>35</td>
-<td>19</td>
-<td>19</td>
-<td>236</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">11</td>
-<td>10월</td>
-<td>3287</td>
-<td>608</td>
-<td>341</td>
-<td>53</td>
-<td>11</td>
-<td>49</td>
-<td>1775</td>
-<td>68</td>
-<td>6</td>
-<td>...</td>
-<td>50</td>
-<td>9</td>
-<td>39</td>
-<td>1529</td>
-<td>35</td>
-<td>8</td>
-<td>33</td>
-<td>27</td>
-<td>17</td>
-<td>260</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">12</td>
-<td>11월</td>
-<td>3162</td>
-<td>669</td>
-<td>369</td>
-<td>46</td>
-<td>17</td>
-<td>34</td>
-<td>1608</td>
-<td>56</td>
-<td>11</td>
-<td>...</td>
-<td>55</td>
-<td>9</td>
-<td>46</td>
-<td>1476</td>
-<td>48</td>
-<td>11</td>
-<td>24</td>
-<td>24</td>
-<td>14</td>
-<td>272</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">13</td>
-<td>12월</td>
-<td>3838</td>
-<td>815</td>
-<td>435</td>
-<td>58</td>
-<td>13</td>
-<td>40</td>
-<td>1967</td>
-<td>81</td>
-<td>4</td>
-<td>...</td>
-<td>40</td>
-<td>14</td>
-<td>46</td>
-<td>1716</td>
-<td>65</td>
-<td>4</td>
-<td>31</td>
-<td>23</td>
-<td>18</td>
-<td>372</td>
-</tr>
 </tbody>
 </table>
 
-<p>14 rows × 38 columns</p>
+<p>5 rows × 38 columns</p>
 </div>
 </div>
 </div>
@@ -493,7 +277,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>연도별로 분리</li>
 </ul>
-<div id="9ef51bb0" class="cell" data-execution_count="2">
+<div id="44bda23c" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df.columns</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">## 연도별로 나눔</span></span>
