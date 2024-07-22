@@ -8,18 +8,19 @@ jupyter: python3
 
 ## 계절별 화재발생 빈도
 
-**<데이터 설명>**
+<데이터 설명>
+
 ```{python}
 import pandas as pd
 import numpy as np
 df = pd.read_csv("data/fire.csv")
-df
+df.head()
 ```
 
-<br>
-**<데이터 전처리>**
+<br> <데이터 전처리>
 
-- 연도별로 분리
+-   연도별로 분리
+
 ```{python}
 df.columns
 
@@ -36,8 +37,6 @@ data_2022
 
 ```
 
-
 ## 요인별 화재발생 빈도
-
 
 ## 요인별 인명피해
