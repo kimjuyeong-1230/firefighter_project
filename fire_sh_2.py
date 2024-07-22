@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 ## 데이터 불러오기
-df = pd.read_csv("C:/Users/USER/Documents/카카오톡 받은 파일/발화요인에_대한_월별_화재발생현황.csv")
+df = pd.read_csv("data/fire.csv")
 df
 
 df.columns
@@ -123,7 +123,7 @@ season = season.loc[['spring', 'summer', 'fall', 'winter']]
 ## 그래프 시각화
 ## 연도별, 계절별 그래프
 import matplotlib.pyplot as plt
-#plt.clf()
+#
 
 plt.figure(figsize=(6, 6))
 plt.plot(season.index, season['2020'], marker='o', label='2020')
@@ -133,7 +133,7 @@ plt.plot(season.index, season['2022'], marker='o', label='2022')
 plt.legend()
 plt.grid(True)
 plt.show()
-
+plt.clf()
 
 ## 요인 막대그래프(3년치 통계)
 # 필요없는 열 삭제 & 데이터 합치기
@@ -175,115 +175,16 @@ rc('font', family=font_name)
 
 # 그래프그리기
 data_all["total"].plot.bar(rot=0)
-<<<<<<< HEAD
-plt.xticks(fontsize=7,rotation=45)
+plt.xticks(fontsize=7, rotation=45)
 plt.show()
-
-
 plt.clf()
-----------------------------------------------------------------------
 
-#요인에 따른 인명피해 
-import pandas as pd
+
 
 #### 요인에 따른 인명피해
 ## 데이터전처리
 # 데이터 불러오기
-damage = pd.read_csv("C:/Users/USER/Documents/카카오톡 받은 파일/발화요인에_대한_월별_인명피해현황.csv")
-damage
-damage.columns
-
-# 연도별 나누기(20/21/22년도)
-damage_20 = damage[['항목'] + damage.filter(like='2020').columns.tolist()]
-damage_20
-damage_21 = damage[['항목'] + damage.filter(like='2021').columns.tolist()]
-damage_21
-damage_22 = damage[['항목'] + damage.filter(like='2022').columns.tolist()]
-damage_22
-
-# 열 이름 바꾸기(기존 열 삭제, 첫번째 행을 열로)
-# 필요없는 행 제거
-damage_20.columns = damage_20.iloc[0]
-damage_20 = damage_20[1:3]
-damage_20 = damage_20.reset_index(drop=True)
-damage_20 = damage_20.drop(columns=['항목','계'])
-damage_20
-
-damage_21.columns = damage_21.iloc[0]
-damage_21 = damage_21[1:3]
-damage_21 = damage_21.reset_index(drop=True)
-damage_21 = damage_21.drop(columns=['항목','계'])
-damage_21
-
-damage_22.columns = damage_22.iloc[0]
-damage_22 = damage_22[1:3]
-damage_22 = damage_22.reset_index(drop=True)
-damage_22 = damage_22.drop(columns=['항목', '계', '제품결함'])
-damage_22
-
-damage_20 =damage_20.transpose()
-damage_21 =damage_21.transpose()
-damage_22 =damage_22.transpose()
-
-damage_all = pd.concat([damage_20, damage_21[1], damage_22[1]], axis=1)
-damage_all.columns
-damage_all
-
-# 여기서부터 막힘
-subset = damage_all.iloc[:, 1:4]
-
-# 숫자로 변환 가능한 데이터만 정수형으로 변환
-subset = subset.apply(pd.to_numeric, errors='coerce').astype(np.int64)
-subset.info()
-
-# 합을 구하여 'total' 열 추가
-damage_all['total'] = subset.sum(axis=1)
-damage_all
-=======
-plt.xticks(fontsize=7, rotation=45)
-plt.show()
-plt.clf()
->>>>>>> 7d6bf55daa3492433bc8aeae43ab22b4b9f01b6e
-
-
-## 1년 사망자수or부상자수 평균
-# 평균을 구하여 'mean'열 추가
-damage_all['mean'] = damage_all['total'] / 3
-damage_all
-
-
-## 사망자수만
-damage_death = damage_all.iloc[0::2].copy()
-damage_death
-
-## 부상자수만
-damage_injury = damage_all.iloc[1::2].copy()
-damage_injury
-
-
-## 건수별 사망률(연단위)
-damage_death["percentage"] = (damage_death["mean"] / data_all["total"]) *100
-damage_death
-
-# 그래프
-damage_death["percentage"].plot.bar(rot=0)
-plt.xticks(fontsize=4, rotation=20)
-plt.show()
-plt.clf()
-
-## 건수별 부상률(연단위)
-damage_injury["percentage"] = (damage_injury["mean"] / data_all["total"]) *100
-damage_injury
-
-# 그래프
-damage_injury["percentage"].plot.bar(rot=0)
-plt.xticks(fontsize=4, rotation=20)
-plt.show()
-
-
-# 데이터전처리
-# 데이터 불러오기
-damage = pd.read_csv("C:/Users/User/Desktop/강의 자료/발화요인에_대한_월별_인명피해현황.csv")
+damage = pd.read_csv("data/di.csv")
 
 # 연도별 나누기(20/21/22년도)
 # 열 이름 바꾸기(기존 열 삭제, 첫번째 행을 열로)

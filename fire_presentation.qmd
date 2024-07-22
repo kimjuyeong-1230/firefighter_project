@@ -1,0 +1,42 @@
+---
+title: "계절별 화재발생 빈도 및 요인 분석"
+author: "명예소방관 시켜조 : 안상후, 오서연, 김주영, 김재희"
+format: html
+editor: visual
+jupyter: python3
+---
+
+## 계절별 화재발생 빈도
+
+<데이터 설명>
+
+```{python}
+import pandas as pd
+import numpy as np
+df = pd.read_csv("data/fire.csv")
+df.head()
+```
+
+<br> <데이터 전처리>
+
+-   연도별로 분리
+
+```{python}
+df.columns
+
+## 연도별로 나눔
+data_2020 = df[['항목'] + df.filter(like='2020').columns.tolist()]
+data_2020
+
+data_2021 = df[['항목'] + df.filter(like='2021').columns.tolist()]
+data_2021
+
+data_2022 = df[['항목'] + df.filter(like='2022').columns.tolist()]
+data_2022
+
+
+```
+
+## 요인별 화재발생 빈도
+
+## 요인별 인명피해
