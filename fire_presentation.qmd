@@ -191,6 +191,141 @@ plt.clf()
 
 > 2020년, 2021년, 2022년 모두 여름과 가을에 비해<br>**봄**과 **겨울**에 화재 발생 빈도가 높게 나타남
 
+
+## 요인별 화재발생 빈도
+
+## 요인별 인명피해
+
+### <데이터 설명>
+
+```{python}
+damage = pd.read_csv("data/human_damage.csv")
+damage
+
+```
+
+<br>
+
+### <데이터 전처리>
+
+-   연도별로 분리
+
+    ```{python}
+    damage_20 = damage[['항목'] + damage.filter(like='2020').columns.tolist()]
+    damage_21 = damage[['항목'] + damage.filter(like='2021').columns.tolist()]
+    damage_22 = damage[['항목'] + damage.filter(like='2022').columns.tolist()]
+
+    damage_20
+    damage_21
+    damage_22
+    ```
+
+    <br>
+
+-   행 올리기 (반복되는 기존 열 삭제 및 첫번째 행 올리기)
+
+```{{python}}
+
+damage_20.columns = damage_20.iloc[0]
+damage_20 = damage_20[1:3]
+damage_20 = damage_20.reset_index(drop=True)
+damage_20 = damage_20.drop(columns=['항목','계'])
+
+damage_21.columns = damage_21.iloc[0]
+damage_21 = damage_21[1:3]
+damage_21 = damage_21.reset_index(drop=True)
+damage_21 = damage_21.drop(columns=['항목','계'])
+
+damage_22.columns = damage_22.iloc[0]
+damage_22 = damage_22[1:3]
+damage_22 = damage_22.reset_index(drop=True)
+damage_22 = damage_22.drop(columns=['항목', '계', '제품결함'])
+```
+
+<br>
+
+-   행열 전환
+
+```{{python}}
+damage_20 = damage_20.transpose()
+damage_20 
+damage_21 = damage_21.transpose()
+damage_21
+damage_22 = damage_22.transpose()
+damage_22
+
+```
+
+<br>
+
+-   통합 3년 전체 데이터 만들기 ( 데이터 합치기 )
+
+    ```{python}
+    damage_total = pd.concat([damage_20, damage_21[1], damage_22[1]], axis=1)
+    damage_total
+    damage_total = damage_total.drop(0, axis=1)
+    ```
+
+    <br>
+
+-   계산 가능한 숫자형 데이터로 전환하기
+
+    ```{python}
+    damage_total=damage_total.astype(int)
+    damage_total.info()
+    ```
+
+    <br>
+
+-   사망 / 부상 데이터끼리 분류하기
+
+    ```{python}
+    death = damage_total.iloc[::2]
+    death
+    injury = damage_total.iloc[1::2]
+    injury
+    ```
+
+    <br>
+
+-   사망,부상별 합계 ,평균 변수 및 백분율 변수 추가하기
+
+    ```{python}
+    # 합계 변수 / 평균 변수 / 백분율 추가하기
+    death_all = death.assign(total = death.sum(axis = 1),
+                         mean = lambda x : x["total"] / 3 ,
+                         ratio = lambda x : (x["mean"] / data_all["total"]) * 100)
+             
+    death_all
+
+    wound_all = wound.assign(total = wound.sum(axis = 1),
+                         mean = lambda x : x["total"] / 3,
+                         ratio = lambda x : (x["mean"] / data_all["total"]) * 100)
+             
+    wound_all
+                               
+    ```
+
+### <데이터 시각화>
+
+-   총 화재 발생 대비 사망률/ 부상률 막대 그래프 생성
+
+    ```{python}
+    death_all["ratio"].plot.bar(rot=0)
+    plt.xticks(fontsize=5, rotation=20)
+    plt.show()
+    plt.clf()
+
+    injury_all["ratio"].plot.bar(rot=0)
+    plt.xticks(fontsize=5, rotation=20)
+    plt.show()
+    plt.clf()
+    ```
+
+### <결과 설명>
+
+### <결론>
+=======
 <br>
 
 ## 요인별 화재발생 빈도
@@ -275,3 +410,4 @@ plt.clf()
 
 ### <결과>
 > 3년간 화재발생 요인의 평균을 분석했을 때 **부주의**가 가장 높게 나타남 
+
