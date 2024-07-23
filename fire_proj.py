@@ -143,7 +143,6 @@ data_2022
 
 data_all = pd.concat([data_2020, data_2021,data_2022])
 data_all
-data_all = data_all.drop(columns=['year'])
 data_all = data_all.drop(columns=['계'])
 data_all
 
@@ -155,8 +154,9 @@ data_all = data_all.drop("항목", axis=0)
 data_all = data_all.drop("계절", axis=0)
 data_all
 
-data_all=data_all.astype(int)
 data_all.info()
+data_all=data_all.astype(int)
+
 
 data_all["total"] = data_all.sum(axis=1)/3
 data_all
@@ -175,7 +175,7 @@ rc('font', family=font_name)
 
 # 그래프그리기
 data_all["total"].plot.bar(rot=0)
-<<<<<<< HEAD
+
 plt.xticks(fontsize=7,rotation=45)
 plt.show()
 
@@ -243,7 +243,7 @@ damage_all
 plt.xticks(fontsize=7, rotation=45)
 plt.show()
 plt.clf()
->>>>>>> 7d6bf55daa3492433bc8aeae43ab22b4b9f01b6e
+
 
 
 ## 1년 사망자수or부상자수 평균
@@ -279,6 +279,8 @@ damage_injury
 damage_injury["percentage"].plot.bar(rot=0)
 plt.xticks(fontsize=4, rotation=20)
 plt.show()
+
+
 
 
 # 데이터전처리
@@ -340,13 +342,17 @@ damage_injury["percentage"] = (damage_injury["mean"] / data_all["total"])*100
 # 한꺼번에 추가하는 코드로 변환 
 
 # 합계 변수 / 평균 변수 / 백분율 추가하기
-death_all = death.assign(total = death.sum(axis = 1),\
-                         mean = lambda x : x["total"] / 3,\
-                         ratio = (lambda x : x["mean"] / data_all["total"]) * 100)
-                         
-injury_all = injury.assign(total = injury.sum(axis = 1),
-                           mean = lambda x : x["total"] / 3,\
-                           ratio = (injury_all["mean"] / data_all["total"]) * 100)
+death_all = death.assign(total = death.sum(axis = 1),
+                         mean = lambda x : x["total"] / 3 ,
+                         ratio = lambda x : (x["mean"] / data_all["total"]) * 100)
+             
+death_all
+
+wound_all = wound.assign(total = wound.sum(axis = 1),
+                         mean = lambda x : x["total"] / 3,
+                         ratio = lambda x : (x["mean"] / data_all["total"]) * 100)
+             
+wound_all
                            
               
              
