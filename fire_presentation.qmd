@@ -187,9 +187,11 @@ plt.clf()
 
 <br>
 
-### <결과 설명>
+### <결과 >
 
 > 2020년, 2021년, 2022년 모두 여름과 가을에 비해<br>**봄**과 **겨울**에 화재 발생 빈도가 높게 나타남
+
+<br>
 
 ## 요인별 화재발생 빈도
 
@@ -197,12 +199,12 @@ plt.clf()
 
 -   다시 한번 데이터 확인해보기
 
-```         
-```
+<br>
 
 ```{python}
 data_2022.head
 ```
+<br>
 
 -   데이터 합치기 ('concat' 함수이용)
 
@@ -210,6 +212,7 @@ data_2022.head
 data_all = pd.concat([data_2020, data_2021,data_2022])
 data_all
 ```
+<br>
 
 -   필요없는 열 제거
 
@@ -217,6 +220,7 @@ data_all
 data_all = data_all.drop(columns=['계'])
 data_all.head(3)
 ```
+<br>
 
 -   요인별 평균 내기
 
@@ -238,6 +242,7 @@ data_all.head()
 data_all.info()
 data_all=data_all.astype(int)
 ```
+<br>
 
 -   1년동안 일어나는 요인별 화재건수를 'total'열 생성(3년 평균)
 
@@ -266,5 +271,7 @@ plt.xticks(fontsize=7, rotation=45)
 plt.show()
 plt.clf()
 ```
+<br>
 
-## 요인별 인명피해
+### <결과>
+> 3년간 화재발생 요인의 평균을 분석했을 때 **부주의**가 가장 높게 나타남 

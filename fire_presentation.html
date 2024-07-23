@@ -110,12 +110,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="계절별-화재발생-빈도">계절별 화재발생 빈도</h2>
 <section id="section" class="level3">
 <h3 class="anchored" data-anchor-id="section">&lt;데이터 설명&gt;</h3>
-<div id="efc306d0" class="cell" data-execution_count="1">
+<div id="f1ef26d4" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/fire.csv"</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="1">
+<div class="cell-output cell-output-display" data-execution_count="64">
 <div>
 
 
@@ -281,7 +281,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>연도별로 분리</li>
 </ul>
-<div id="026dc875" class="cell" data-execution_count="2">
+<div id="d02eedc6" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data_2020 <span class="op">=</span> df[[<span class="st">'항목'</span>] <span class="op">+</span> df.<span class="bu">filter</span>(like<span class="op">=</span><span class="st">'2020'</span>).columns.tolist()]</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>data_2021 <span class="op">=</span> df[[<span class="st">'항목'</span>] <span class="op">+</span> df.<span class="bu">filter</span>(like<span class="op">=</span><span class="st">'2021'</span>).columns.tolist()]</span>
@@ -289,7 +289,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="op">=</span> df[[<span class="st">'항목'</span>] <span class="op">+</span> df.<span class="bu">filter</span>(like<span class="op">=</span><span class="st">'2022'</span>).columns.tolist()]</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>data_2022.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="65">
 <div>
 
 
@@ -409,10 +409,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>2022년의 제품결함 열 삭제</li>
 </ul>
-<div id="4a789a41" class="cell" data-execution_count="3">
+<div id="bc5a75f9" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="op">=</span> data_2022.drop(columns <span class="op">=</span> <span class="st">"2022.11"</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data_2022.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="66">
 <div>
 
 
@@ -526,7 +526,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>0번째 행을 column으로 지정</li>
 </ul>
-<div id="2d981ee9" class="cell" data-execution_count="4">
+<div id="d0d7a36d" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data_2020.columns <span class="op">=</span> data_2020.iloc[<span class="dv">0</span>] </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>data_2021.columns <span class="op">=</span> data_2021.iloc[<span class="dv">0</span>] </span>
@@ -534,7 +534,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>data_2022.columns <span class="op">=</span> data_2022.iloc[<span class="dv">0</span>] </span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>data_2022.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="67">
 <div>
 
 
@@ -648,7 +648,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>0행, 1행 삭제 후 인덱스 초기화</li>
 </ul>
-<div id="184f3568" class="cell" data-execution_count="5">
+<div id="5d8e15e8" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data_2020 <span class="op">=</span> data_2020[<span class="dv">2</span>:]</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>data_2020 <span class="op">=</span> data_2020.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -659,7 +659,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="op">=</span> data_2022.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>data_2022.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="68">
 <div>
 
 
@@ -773,7 +773,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>데이터타입이 object로 되어 있음</li>
 </ul>
-<div id="0df72b63" class="cell" data-execution_count="6">
+<div id="4563f157" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data_2022.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
@@ -802,7 +802,7 @@ memory usage: 1.3+ KB</code></pre>
 <ul>
 <li>for문을 사용해 데이터타입을 int로 변경</li>
 </ul>
-<div id="a6d308c2" class="cell" data-execution_count="7">
+<div id="64a3042d" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>columns_to_convert <span class="op">=</span> [<span class="st">'계'</span>, <span class="st">'전기적요인'</span>, <span class="st">'기계적요인'</span>,</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                <span class="st">'화학적요인'</span>, <span class="st">'가스누출'</span>, <span class="st">'교통사고'</span>, <span class="st">'부주의'</span>, <span class="st">'기타'</span>,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">'자연적요인'</span>, <span class="st">'방화'</span>, <span class="st">'방화의심'</span>, <span class="st">'미상'</span>]</span>
@@ -847,7 +847,7 @@ memory usage: 1.3+ KB</code></pre>
 <p>봄: 3월, 4월, 5월<br> 여름: 6월, 7월, 8월<br> 가을: 9월, 10월, 11월<br> 겨울: 12월, 1월, 2월</p>
 </blockquote></li>
 </ul>
-<div id="cf588c32" class="cell" data-execution_count="8">
+<div id="30406ddd" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data_2020[<span class="st">"계절"</span>] <span class="op">=</span> np.where(data_2020[<span class="st">"항목"</span>]<span class="op">\</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                    .isin([<span class="st">"3월"</span>, <span class="st">"4월"</span>, <span class="st">"5월"</span>]),<span class="st">"spring"</span>,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                    np.where(data_2020[<span class="st">"항목"</span>]<span class="op">\</span></span>
@@ -870,7 +870,7 @@ memory usage: 1.3+ KB</code></pre>
 <span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>                    .isin([<span class="st">"9월"</span>, <span class="st">"10월"</span>, <span class="st">"11월"</span>]),<span class="st">"fall"</span>,<span class="st">"winter"</span>)))</span>
 <span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>data_2022.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="71">
 <div>
 
 
@@ -990,7 +990,7 @@ memory usage: 1.3+ KB</code></pre>
 <ul>
 <li>계절별 화재 횟수 데이터프레임 생성</li>
 </ul>
-<div id="981921db" class="cell" data-execution_count="9">
+<div id="6fe57a0a" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>season_20 <span class="op">=</span> data_2020.groupby(<span class="st">'계절'</span>).agg(sum2020<span class="op">=</span>(<span class="st">'계'</span>,<span class="st">'sum'</span>))</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>season_21 <span class="op">=</span> data_2021.groupby(<span class="st">'계절'</span>).agg(sum2021<span class="op">=</span>(<span class="st">'계'</span>,<span class="st">'sum'</span>))</span>
@@ -998,7 +998,7 @@ memory usage: 1.3+ KB</code></pre>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>season_22 <span class="op">=</span> data_2022.groupby(<span class="st">'계절'</span>).agg(sum2022<span class="op">=</span>(<span class="st">'계'</span>,<span class="st">'sum'</span>))</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>season_22</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="72">
 <div>
 
 
@@ -1040,10 +1040,10 @@ memory usage: 1.3+ KB</code></pre>
 <ul>
 <li>각 데이터를 열로 병합</li>
 </ul>
-<div id="952eb34d" class="cell" data-execution_count="10">
+<div id="7b905ccf" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>season <span class="op">=</span> pd.concat([season_20,season_21,season_22], axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>season</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div class="cell-output cell-output-display" data-execution_count="73">
 <div>
 
 
@@ -1097,10 +1097,10 @@ memory usage: 1.3+ KB</code></pre>
 <ul>
 <li>계절 순서를 ‘봄’, ‘여름’, ‘가을’, ’겨울’로 정렬</li>
 </ul>
-<div id="b7bb3c0e" class="cell" data-execution_count="11">
+<div id="592e6087" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>season <span class="op">=</span> season.loc[[<span class="st">'spring'</span>, <span class="st">'summer'</span>, <span class="st">'fall'</span>, <span class="st">'winter'</span>]]</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>season</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="74">
 <div>
 
 
@@ -1157,7 +1157,7 @@ memory usage: 1.3+ KB</code></pre>
 <ul>
 <li>계절별 화재발생 선 그래프 생성</li>
 </ul>
-<div id="52248387" class="cell" data-execution_count="12">
+<div id="a5883644" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">6</span>))</span>
@@ -1172,7 +1172,7 @@ memory usage: 1.3+ KB</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="fire_presentation_files/figure-html/cell-13-output-1.png" width="518" height="485" class="figure-img"></p>
+<p><img src="fire_presentation_files/figure-html/cell-13-output-1.png" width="512" height="485" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1183,10 +1183,11 @@ memory usage: 1.3+ KB</code></pre>
 <p><br></p>
 </section>
 <section id="section-3" class="level3">
-<h3 class="anchored" data-anchor-id="section-3">&lt;결과 설명&gt;</h3>
+<h3 class="anchored" data-anchor-id="section-3">&lt;결과 &gt;</h3>
 <blockquote class="blockquote">
 <p>2020년, 2021년, 2022년 모두 여름과 가을에 비해<br><strong>봄</strong>과 <strong>겨울</strong>에 화재 발생 빈도가 높게 나타남</p>
 </blockquote>
+<p><br></p>
 </section>
 </section>
 <section id="요인별-화재발생-빈도" class="level2">
@@ -1196,10 +1197,10 @@ memory usage: 1.3+ KB</code></pre>
 <ul>
 <li>다시 한번 데이터 확인해보기</li>
 </ul>
-<pre><code></code></pre>
-<div id="a3e217a2" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>data_2022.head</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
+<p><br></p>
+<div id="93c01ecc" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>data_2022.head</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="76">
 <pre><code>&lt;bound method NDFrame.head of 0    항목     계  전기적요인  기계적요인  화학적요인  가스누출  교통사고   부주의  기타  자연적요인  방화  방화의심  \
 0    1월  4098    932    373     52    20    38  2173  48      4  37    31   
 1    2월  4121    778    328     43    12    30  2396  52     11  34    37   
@@ -1229,13 +1230,14 @@ memory usage: 1.3+ KB</code></pre>
 11  372  winter  &gt;</code></pre>
 </div>
 </div>
+<p><br></p>
 <ul>
 <li>데이터 합치기 (‘concat’ 함수이용)</li>
 </ul>
-<div id="62618e7b" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>data_all <span class="op">=</span> pd.concat([data_2020, data_2021,data_2022])</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>data_all</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
+<div id="734a731a" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data_all <span class="op">=</span> pd.concat([data_2020, data_2021,data_2022])</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>data_all</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="77">
 <div>
 
 
@@ -1878,13 +1880,14 @@ memory usage: 1.3+ KB</code></pre>
 </div>
 </div>
 </div>
+<p><br></p>
 <ul>
 <li>필요없는 열 제거</li>
 </ul>
-<div id="41a31c00" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data_all <span class="op">=</span> data_all.drop(columns<span class="op">=</span>[<span class="st">'계'</span>])</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>data_all.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div id="147c4dde" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>data_all <span class="op">=</span> data_all.drop(columns<span class="op">=</span>[<span class="st">'계'</span>])</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>data_all.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="78">
 <div>
 
 
@@ -1962,14 +1965,15 @@ memory usage: 1.3+ KB</code></pre>
 </div>
 </div>
 </div>
+<p><br></p>
 <ul>
 <li>요인별 평균 내기</li>
 </ul>
-<div id="c9b2c190" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 행과 열 바꿔줌</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>data_all <span class="op">=</span> data_all.transpose()</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>data_all.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
+<div id="d577ef6f" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 행과 열 바꿔줌</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>data_all <span class="op">=</span> data_all.transpose()</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>data_all.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="79">
 <div>
 
 
@@ -2152,12 +2156,12 @@ memory usage: 1.3+ KB</code></pre>
 </div>
 </div>
 </div>
-<div id="78b250fc" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 필요없는 열 제거</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>data_all <span class="op">=</span> data_all.drop(<span class="st">"항목"</span>, axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>data_all <span class="op">=</span> data_all.drop(<span class="st">"계절"</span>, axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>data_all.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
+<div id="91360fba" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 필요없는 열 제거</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>data_all <span class="op">=</span> data_all.drop(<span class="st">"항목"</span>, axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>data_all <span class="op">=</span> data_all.drop(<span class="st">"계절"</span>, axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>data_all.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="80">
 <div>
 
 
@@ -2340,10 +2344,10 @@ memory usage: 1.3+ KB</code></pre>
 </div>
 </div>
 </div>
-<div id="0482daf5" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터타입 변경</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>data_all.info()</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>data_all<span class="op">=</span>data_all.astype(<span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="89d9047d" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터타입 변경</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>data_all.info()</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>data_all<span class="op">=</span>data_all.astype(<span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
 Index: 11 entries, 전기적요인 to 미상
@@ -2390,13 +2394,14 @@ dtypes: object(36)
 memory usage: 3.2+ KB</code></pre>
 </div>
 </div>
+<p><br></p>
 <ul>
 <li>1년동안 일어나는 요인별 화재건수를 ’total’열 생성(3년 평균)</li>
 </ul>
-<div id="259a9d3f" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>data_all[<span class="st">"total"</span>] <span class="op">=</span> data_all.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span><span class="dv">3</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>data_all.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<div id="80350c6d" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>data_all[<span class="st">"total"</span>] <span class="op">=</span> data_all.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span><span class="dv">3</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>data_all.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="82">
 <div>
 
 
@@ -2579,14 +2584,14 @@ memory usage: 3.2+ KB</code></pre>
 </div>
 </div>
 </div>
-<div id="cfd63da7" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 한글</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> font_manager, rc</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 한글 폰트 설정</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>font_path <span class="op">=</span> <span class="st">"C:/Windows/Fonts/malgun.ttf"</span>  <span class="co"># 예시: 윈도우 시스템에 있는 맑은 고딕 폰트 경로</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>font_name <span class="op">=</span> font_manager.FontProperties(fname<span class="op">=</span>font_path).get_name()</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>rc(<span class="st">'font'</span>, family<span class="op">=</span>font_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="d082a46b" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">## 한글</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> font_manager, rc</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 한글 폰트 설정</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>font_path <span class="op">=</span> <span class="st">"C:/Windows/Fonts/malgun.ttf"</span>  <span class="co"># 예시: 윈도우 시스템에 있는 맑은 고딕 폰트 경로</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>font_name <span class="op">=</span> font_manager.FontProperties(fname<span class="op">=</span>font_path).get_name()</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>rc(<span class="st">'font'</span>, family<span class="op">=</span>font_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="section-5" class="level3">
@@ -2594,11 +2599,11 @@ memory usage: 3.2+ KB</code></pre>
 <ul>
 <li>요인별 화재건수</li>
 </ul>
-<div id="73ca3485" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>data_all[<span class="st">"total"</span>].plot.bar(rot<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>plt.xticks(fontsize<span class="op">=</span><span class="dv">7</span>, rotation<span class="op">=</span><span class="dv">45</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>plt.clf()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="79f3c3ea" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>data_all[<span class="st">"total"</span>].plot.bar(rot<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>plt.xticks(fontsize<span class="op">=</span><span class="dv">7</span>, rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>plt.clf()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2610,10 +2615,14 @@ memory usage: 3.2+ KB</code></pre>
 <pre><code>&lt;Figure size 672x480 with 0 Axes&gt;</code></pre>
 </div>
 </div>
+<p><br></p>
 </section>
+<section id="section-6" class="level3">
+<h3 class="anchored" data-anchor-id="section-6">&lt;결과&gt;</h3>
+<blockquote class="blockquote">
+<p>3년간 화재발생 요인의 평균을 분석했을 때 <strong>부주의</strong>가 가장 높게 나타남</p>
+</blockquote>
 </section>
-<section id="요인별-인명피해" class="level2">
-<h2 class="anchored" data-anchor-id="요인별-인명피해">요인별 인명피해</h2>
 </section>
 
 </main>
