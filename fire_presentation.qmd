@@ -16,11 +16,12 @@ import numpy as np
 df = pd.read_csv("data/fire.csv")
 df.head()
 ```
+
 <br>
 
 ### <데이터 전처리>
 
-- 연도별로 분리
+-   연도별로 분리
 
 ```{python}
 data_2020 = df[['항목'] + df.filter(like='2020').columns.tolist()]
@@ -31,17 +32,19 @@ data_2022 = df[['항목'] + df.filter(like='2022').columns.tolist()]
 
 data_2022.head()
 ```
+
 <br>
 
-- 2022년의 제품결함 열 삭제
+-   2022년의 제품결함 열 삭제
 
 ```{python}
 data_2022 = data_2022.drop(columns = "2022.11")
 data_2022.head()
 ```
+
 <br>
 
-- 0번째 행을 column으로 지정
+-   0번째 행을 column으로 지정
 
 ```{python}
 data_2020.columns = data_2020.iloc[0] 
@@ -52,9 +55,10 @@ data_2022.columns = data_2022.iloc[0]
 
 data_2022.head()
 ```
+
 <br>
 
-- 0행, 1행 삭제 후  인덱스 초기화
+-   0행, 1행 삭제 후 인덱스 초기화
 
 ```{python}
 data_2020 = data_2020[2:]
@@ -68,16 +72,18 @@ data_2022 = data_2022.reset_index(drop=True)
 
 data_2022.head()
 ```
+
 <br>
 
-- 데이터타입이 object로 되어 있음
+-   데이터타입이 object로 되어 있음
 
 ```{python}
 data_2022.info()
 ```
+
 <br>
 
-- for문을 사용해 데이터타입을 int로 변경
+-   for문을 사용해 데이터타입을 int로 변경
 
 ```{python}
 columns_to_convert = ['계', '전기적요인', '기계적요인',
@@ -95,15 +101,13 @@ for column in columns_to_convert:
 
 data_2022.info()
 ```
+
 <br>
 
-- 계절 파생변수 추가
+-   계절 파생변수 추가
 
-  > 봄:  3월, 4월, 5월<br>
-  여름:  6월, 7월, 8월<br>
-  가을:  9월, 10월, 11월<br>
-  겨울:  12월, 1월, 2월
-  
+    > 봄: 3월, 4월, 5월<br> 여름: 6월, 7월, 8월<br> 가을: 9월, 10월, 11월<br> 겨울: 12월, 1월, 2월
+
 ```{python}
 data_2020["계절"] = np.where(data_2020["항목"]\
                     .isin(["3월", "4월", "5월"]),"spring",
@@ -128,9 +132,10 @@ data_2022["계절"] = np.where(data_2022["항목"]\
 
 data_2022.head()
 ```
+
 <br>
 
-- 계절별 화재 횟수 데이터프레임 생성
+-   계절별 화재 횟수 데이터프레임 생성
 
 ```{python}
 season_20 = data_2020.groupby('계절').agg(sum2020=('계','sum'))
@@ -141,27 +146,30 @@ season_22 = data_2022.groupby('계절').agg(sum2022=('계','sum'))
 
 season_22
 ```
+
 <br>
 
-- 각 데이터를 열로 병합
+-   각 데이터를 열로 병합
 
 ```{python}
 season = pd.concat([season_20,season_21,season_22], axis=1)
 season
 ```
+
 <br>
 
-- 계절 순서를 '봄', '여름', '가을', '겨울'로 정렬
+-   계절 순서를 '봄', '여름', '가을', '겨울'로 정렬
 
 ```{python}
 season = season.loc[['spring', 'summer', 'fall', 'winter']]
 season
 ```
+
 <br>
 
 ### <데이터 시각화>
 
-- 계절별 화재발생 선 그래프 생성
+-   계절별 화재발생 선 그래프 생성
 
 ```{python}
 import matplotlib.pyplot as plt
@@ -176,13 +184,146 @@ plt.grid(True)
 plt.show()
 plt.clf()
 ```
+
 <br>
 
 ### <결과 설명>
 
 > 2020년, 2021년, 2022년 모두 여름과 가을에 비해<br>**봄**과 **겨울**에 화재 발생 빈도가 높게 나타남
 
-
 ## 요인별 화재발생 빈도
 
 ## 요인별 인명피해
+
+### <데이터 설명>
+
+```{python}
+damage = pd.read_csv("data/human_damage.csv")
+damage
+
+```
+
+<br>
+
+### <데이터 전처리>
+
+-   연도별로 분리
+
+    ```{python}
+    damage_20 = damage[['항목'] + damage.filter(like='2020').columns.tolist()]
+    damage_21 = damage[['항목'] + damage.filter(like='2021').columns.tolist()]
+    damage_22 = damage[['항목'] + damage.filter(like='2022').columns.tolist()]
+
+    damage_20
+    damage_21
+    damage_22
+    ```
+
+    <br>
+
+-   행 올리기 (반복되는 기존 열 삭제 및 첫번째 행 올리기)
+
+```{{python}}
+
+damage_20.columns = damage_20.iloc[0]
+damage_20 = damage_20[1:3]
+damage_20 = damage_20.reset_index(drop=True)
+damage_20 = damage_20.drop(columns=['항목','계'])
+
+damage_21.columns = damage_21.iloc[0]
+damage_21 = damage_21[1:3]
+damage_21 = damage_21.reset_index(drop=True)
+damage_21 = damage_21.drop(columns=['항목','계'])
+
+damage_22.columns = damage_22.iloc[0]
+damage_22 = damage_22[1:3]
+damage_22 = damage_22.reset_index(drop=True)
+damage_22 = damage_22.drop(columns=['항목', '계', '제품결함'])
+```
+
+<br>
+
+-   행열 전환
+
+```{{python}}
+damage_20 = damage_20.transpose()
+damage_20 
+damage_21 = damage_21.transpose()
+damage_21
+damage_22 = damage_22.transpose()
+damage_22
+
+```
+
+<br>
+
+-   통합 3년 전체 데이터 만들기 ( 데이터 합치기 )
+
+    ```{python}
+    damage_total = pd.concat([damage_20, damage_21[1], damage_22[1]], axis=1)
+    damage_total
+    damage_total = damage_total.drop(0, axis=1)
+    ```
+
+    <br>
+
+-   계산 가능한 숫자형 데이터로 전환하기
+
+    ```{python}
+    damage_total=damage_total.astype(int)
+    damage_total.info()
+    ```
+
+    <br>
+
+-   사망 / 부상 데이터끼리 분류하기
+
+    ```{python}
+    death = damage_total.iloc[::2]
+    death
+    injury = damage_total.iloc[1::2]
+    injury
+    ```
+
+    <br>
+
+-   사망,부상별 합계 ,평균 변수 및 백분율 변수 추가하기
+
+    ```{python}
+    death_all = death.assign(total = death.sum(axis = 1),\
+                             mean = lambda x : x["total"] / 3,\
+                             ratio = (death_all["mean"] / data_all["total"]) *100)
+                             
+    death_all = death.assign(total = death.sum(axis = 1),\
+                             mean = lambda x : x["total"] / 3,\
+                             ratio = (lambda x : x["mean"] / data_all["total"]) * 100)                         
+                             
+    injury_all = injury.assign(total = injury.sum(axis = 1),
+                               mean = lambda x : x["total"] / 3,\
+                               ratio = (injury_all["mean"] / data_all["total"]) *100)
+                               
+    injury_all = injury.assign(total = injury.sum(axis = 1),
+                               mean = lambda x : x["total"] / 3,\
+                               ratio = (lambda x : x["mean"] / data_all["total"]) *100)
+                               
+    ```
+
+### <데이터 시각화>
+
+-   총 화재 발생 대비 사망률/ 부상률 막대 그래프 생성
+
+    ```{python}
+    death_all["ratio"].plot.bar(rot=0)
+    plt.xticks(fontsize=5, rotation=20)
+    plt.show()
+    plt.clf()
+
+    injury_all["ratio"].plot.bar(rot=0)
+    plt.xticks(fontsize=5, rotation=20)
+    plt.show()
+    plt.clf()
+    ```
+
+### <결과 설명>
+
+### <결론>

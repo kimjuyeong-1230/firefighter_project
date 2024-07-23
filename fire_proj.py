@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 ## 데이터 불러오기
-df = pd.read_csv("C:/Users/USER/Documents/카카오톡 받은 파일/발화요인에_대한_월별_화재발생현황.csv")
+df = pd.read_csv("data/fire.csv")
 df
 
 df.columns
@@ -283,7 +283,7 @@ plt.show()
 
 # 데이터전처리
 # 데이터 불러오기
-damage = pd.read_csv("C:/Users/User/Desktop/강의 자료/발화요인에_대한_월별_인명피해현황.csv")
+damage = pd.read_csv("data/human_damage.csv")
 
 # 연도별 나누기(20/21/22년도)
 # 열 이름 바꾸기(기존 열 삭제, 첫번째 행을 열로)
@@ -320,9 +320,10 @@ damage_total=damage_total.astype(int)
 damage_total.info()
 
 # 사망, 부상 나누기
-damage_death = damage_total.iloc[::2]
-damage_injury = damage_total.iloc[1::2]
+death = damage_total.iloc[::2]
+injury = damage_total.iloc[1::2]
 
+----------------------------------------------------------------------
 # 사망, 부상 합 구하기
 damage_death["total"] = damage_death.sum(axis=1)
 damage_injury["total"] = damage_injury.sum(axis=1)
@@ -335,13 +336,28 @@ damage_injury["mean"] = damage_injury["total"]/3
 damage_death["percentage"] = (damage_death["mean"] / data_all["total"])*100
 damage_injury["percentage"] = (damage_injury["mean"] / data_all["total"])*100
 
+----------------------------------------------------------------------------
+# 한꺼번에 추가하는 코드로 변환 
+
+# 합계 변수 / 평균 변수 / 백분율 추가하기
+death_all = death.assign(total = death.sum(axis = 1),\
+                         mean = lambda x : x["total"] / 3,\
+                         ratio = (lambda x : x["mean"] / data_all["total"]) * 100)
+                         
+injury_all = injury.assign(total = injury.sum(axis = 1),
+                           mean = lambda x : x["total"] / 3,\
+                           ratio = (injury_all["mean"] / data_all["total"]) * 100)
+                           
+              
+             
 # 그래프 그리기
-damage_death["percentage"].plot.bar(rot=0)
+death_all["ratio"].plot.bar(rot=0)
 plt.xticks(fontsize=5, rotation=20)
 plt.show()
 plt.clf()
 
-damage_injury["percentage"].plot.bar(rot=0)
+injury_all["ratio"].plot.bar(rot=0)
 plt.xticks(fontsize=5, rotation=20)
 plt.show()
 plt.clf()
+

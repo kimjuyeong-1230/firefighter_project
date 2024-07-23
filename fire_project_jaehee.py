@@ -245,8 +245,8 @@ wound.info()
 
 # 합계 변수 / 평균 변수 / 백분율 추가하기
 death_all = death.assign(total = death.sum(axis = 1),
-                         mean = lambda x : x["total"] / 3,
-                         ratio = (death_all["mean"] / data_all["total"]) * 100)
+                         mean = lambda x : x["total"] / 3 ,
+                         ratio = (death["mean"] / data_all["total"]) * 100)
              
 death_all 
 
